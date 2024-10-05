@@ -1,0 +1,9 @@
+CPU-DPU parallel: 1024,50176,50176,50176
+DPU-CPU parallel: 256
+CPU-DPU parallel: 1024,50176,50176,50176
+DPU-CPU parallel: 256
+CPU-DPU parallel: 1024,50176,50176,50176
+DPU-CPU parallel: 256
+CPU-DPU parallel: 1024,50176,50176,50176
+DPU-CPU parallel: 256
+CPU Version Time (ms): 73.052000	Inter-DPU Time (ms): 0.000000	CPU-DPU Time (ms): 4.060667	DPU Kernel Time (ms): 249.577667	DPU-CPU Time (ms): 1.132667	[[32mOK[0m] results are equal

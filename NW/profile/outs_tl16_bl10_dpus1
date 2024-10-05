@@ -1,0 +1,13 @@
+Allocated 1 DPU(s)
+Allocated 16 TASKLET(s) per DPU
+Max size 2560
+CPU-DPU parallel 1: 8, iteration: 2561
+CPU-DPU parallel 2: 10240, iteration: 2561
+inter-DPU parallel 1: 8, iteration: 0
+DPU-CPU parallel 1: 10248, iteration: 2561
+CPU-DPU parallel 3: 10240, iteration: 0
+Inter-DPU parallel 2: 8, iteration: 0
+DPU-CPU parallel 2: 10248, iteration: 0
+CPU version Time (ms): 87.903000	CPU-DPU Time (ms): 185.867000	DPU Kernel Time (ms): 1420.412000	Inter-DPU Time (ms): 0.201000	DPU-CPU Time (ms): 246.187000	
+Longest Diagonal CPU-DPU Time (ms): 185.867000	Longest Diagonal DPU Kernel Time (ms): 1420.412000	Longest Diagonal Inter-DPU Time (ms): 0.000012	Longest Diagonal DPU-CPU Time (ms): 246.186000	
+[[32mOK[0m] Outputs are equal

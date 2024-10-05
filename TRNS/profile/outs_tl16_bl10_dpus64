@@ -1,0 +1,11 @@
+nr_elements	100663296	NR_TASKLETS	16
+M_	12288, m	16, N_	64, n	8
+Allocated 64 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+CPU-DPU parallel 1: 64, iteration: 196608
+CPU-DPU parallel 2: 16, 98304, 64, iteration: 1
+DPU-CPU parallel: 12582912, iteration: 1
+CPU Time (ms): 924.274000	CPU-DPU (Step 1) Time (ms): 19253.750000	Step 2 Time (ms): 236.013000	Step 3 Time (ms): 175.004000	DPU-CPU Time (ms): 451.060000	[[32mOK[0m] Outputs are equal

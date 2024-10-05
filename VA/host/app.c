@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, input_size_dpu_8bytes * sizeof(T), input_size_dpu_8bytes * sizeof(T), DPU_XFER_DEFAULT));
         if(rep >= p.n_warmup)
             stop(&timer, 1);
-
+        printf("CPU-DPU parallel: %d,%d,%d\n", sizeof(input_arguments[0]), input_size_dpu_8bytes * sizeof(T), input_size_dpu_8bytes * sizeof(T));
         printf("Run program on DPU(s) \n");
         // Run DPU kernel
         if(rep >= p.n_warmup) {
@@ -176,6 +176,7 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_FROM_DPU, DPU_MRAM_HEAP_POINTER_NAME, input_size_dpu_8bytes * sizeof(T), input_size_dpu_8bytes * sizeof(T), DPU_XFER_DEFAULT));
         if(rep >= p.n_warmup)
             stop(&timer, 3);
+        printf("DPU-CPU parallel: %d\n", input_size_dpu_8bytes * sizeof(T));
 
     }
 

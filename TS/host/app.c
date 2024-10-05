@@ -234,7 +234,10 @@ int main(int argc, char **argv) {
 
 		if (rep >= p.n_warmup)
 			stop(&timer, 1);
-
+		printf("CPU-DPU parallel: %d,%d,%d,%d\n", query_length * sizeof(DTYPE), 
+			(slice_per_dpu + query_length)*sizeof(DTYPE), 
+			(slice_per_dpu + query_length)*sizeof(DTYPE), 
+			(slice_per_dpu + query_length)*sizeof(DTYPE));
 		// Run kernel on DPUs
 		if (rep >= p.n_warmup)
 		{
@@ -285,6 +288,9 @@ int main(int argc, char **argv) {
 
 		if(rep >= p.n_warmup)
 			stop(&timer, 3);
+		
+		printf("DPU-CPU parallel: %d\n", NR_TASKLETS * sizeof(dpu_result_t));
+		
 
 
 #if PRINT

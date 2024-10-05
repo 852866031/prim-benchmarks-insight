@@ -1,0 +1,19 @@
+CPU-DPU parallel: 16,565248,4096
+Inter-DPU parallel: 552,4096,565248
+Inter-DPU parallel: 552,4096,565248
+DPU-CPU parallel: 552
+CPU-DPU parallel: 16,565248,4096
+Inter-DPU parallel: 552,4096,565248
+Inter-DPU parallel: 552,4096,565248
+DPU-CPU parallel: 552
+CPU-DPU parallel: 16,565248,4096
+Inter-DPU parallel: 552,4096,565248
+Inter-DPU parallel: 552,4096,565248
+DPU-CPU parallel: 552
+CPU-DPU parallel: 16,565248,4096
+Inter-DPU parallel: 552,4096,565248
+Inter-DPU parallel: 552,4096,565248
+DPU-CPU parallel: 552
+CPU Version Time (ms): 73.534000	CPU-DPU Time (ms): 9.716667	DPU Kernel Time (ms): 18.066667	Inter-DPU Time (ms): 16.798000	DPU-CPU Time (ms): 0.233333	
+
+[[32mOK[0m] Outputs are equal

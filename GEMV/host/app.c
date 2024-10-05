@@ -173,6 +173,8 @@ int main(int argc, char **argv) {
 
 		if (rep >= p.n_warmup)
 			stop(&timer, 1);
+	
+		printf("CPU-DPU parallel: %d,%d,%d\n", sizeof(dpu_arguments_t), max_rows_per_dpu * n_size_pad * sizeof(T), n_size_pad * sizeof(T));
 
 		// Run kernel on DPUs
 		if (rep >= p.n_warmup)
@@ -210,6 +212,9 @@ int main(int argc, char **argv) {
 		DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_FROM_DPU, DPU_MRAM_HEAP_POINTER_NAME, max_rows_per_dpu * n_size_pad * sizeof(T) + n_size_pad * sizeof(T), max_rows_per_dpu * sizeof(T), DPU_XFER_DEFAULT));
 		if(rep >= p.n_warmup)
 			stop(&timer, 3);
+		
+		printf("DPU-CPU parallel: %d\n", max_rows_per_dpu * sizeof(T));
+
 	}
 #if ENERGY
 	double acc_energy, avg_energy, acc_time, avg_time;

@@ -90,6 +90,8 @@ int main(int argc, char **argv) {
 
     // Timer declaration
     Timer timer;
+    
+    int counter = 0;
 
     printf("NR_TASKLETS\t%d\n", NR_TASKLETS);
     printf("M_\t%u, m\t%u, N_\t%u, n\t%u\n", M_, m, N_, n);
@@ -134,6 +136,7 @@ int main(int argc, char **argv) {
             printf("Load input data (step 1)\n");
             if(rep >= p.n_warmup)
                 start(&timer, 1, rep - p.n_warmup + timer_fix);
+            counter++;
             // Load input matrix (step 1)
             for(unsigned int j = 0; j < M_ * m; j++){
                 unsigned int i = 0;
@@ -145,6 +148,7 @@ int main(int argc, char **argv) {
             }
             if(rep >= p.n_warmup)
                 stop(&timer, 1);
+            
             // Reset done array (for step 3)
             DPU_FOREACH(dpu_set, dpu) {
                 DPU_ASSERT(dpu_prepare_xfer(dpu, done_host));
@@ -227,6 +231,8 @@ int main(int argc, char **argv) {
             DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_FROM_DPU, DPU_MRAM_HEAP_POINTER_NAME, 0, sizeof(T) * m * n * M_, DPU_XFER_DEFAULT));
             if(rep >= p.n_warmup)
                 stop(&timer, 4);
+            
+            
 
             if(first_round){
                 first_round = 0;
@@ -234,6 +240,9 @@ int main(int argc, char **argv) {
             timer_fix++;
         }
         DPU_ASSERT(dpu_free(dpu_set));
+        printf("CPU-DPU parallel 1: %d, iteration: %d\n", sizeof(T) * n, counter* M_ * m);
+        printf("CPU-DPU parallel 2: %d, %d, %d, iteration: %d\n", sizeof(dpu_arguments_t), (M_ * n) / 8 == 0 ? 8 : M_ * n, sizeof(T) * n, counter);
+        printf("DPU-CPU parallel: %d, iteration: %d\n", sizeof(T) * m * n * M_, counter);
 
     }
 

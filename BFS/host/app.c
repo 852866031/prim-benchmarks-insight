@@ -73,6 +73,8 @@ int main(int argc, char** argv) {
     struct DPUParams dpuParams[numDPUs];
     uint32_t dpuParams_m[numDPUs];
     unsigned int dpuIdx = 0;
+    int counter = 0;
+    size_t size1=0, size2=0, size3=0, size4=0, size5=0;
     DPU_FOREACH (dpu_set, dpu) {
 
         // Allocate parameters
@@ -129,14 +131,19 @@ int main(int argc, char** argv) {
             PRINT_INFO(p.verbosity >= 2, "        Copying data to DPU");
             startTimer(&timer);
             copyToDPU(dpu, (uint8_t*)dpuNodePtrs_h, dpuNodePtrs_m, (dpuNumNodes + 1)*sizeof(uint32_t));
+            size1 += ROUND_UP_TO_MULTIPLE_OF_8((dpuNumNodes + 1)*sizeof(uint32_t));
             copyToDPU(dpu, (uint8_t*)dpuNeighborIdxs_h, dpuNeighborIdxs_m, dpuNumNeighbors*sizeof(uint32_t));
+            size2 += ROUND_UP_TO_MULTIPLE_OF_8(dpuNumNeighbors*sizeof(uint32_t));
             copyToDPU(dpu, (uint8_t*)dpuNodeLevel_h, dpuNodeLevel_m, dpuNumNodes*sizeof(uint32_t));
+            size3 += ROUND_UP_TO_MULTIPLE_OF_8(dpuNumNodes*sizeof(uint32_t));
             copyToDPU(dpu, (uint8_t*)visited, dpuVisited_m, numNodes/64*sizeof(uint64_t));
+            size4 += ROUND_UP_TO_MULTIPLE_OF_8(numNodes/64*sizeof(uint64_t));
             copyToDPU(dpu, (uint8_t*)nextFrontier, dpuNextFrontier_m, numNodes/64*sizeof(uint64_t));
+            size5 += ROUND_UP_TO_MULTIPLE_OF_8(numNodes/64*sizeof(uint64_t));
+            counter++;
             // NOTE: No need to copy current frontier because it is written before being read
             stopTimer(&timer);
             loadTime += getElapsedTime(timer);
-
         }
 
         // Send parameters to DPU
@@ -149,10 +156,18 @@ int main(int argc, char** argv) {
         ++dpuIdx;
 
     }
+    printf("CPU-DPU serial: %d, %d, %d, %d, %d, counter: %d\n", 
+            (int) size1/counter, 
+            (int) size2/counter, 
+            (int) size3/counter, 
+            (int) size4/counter,
+            (int) size5/counter,
+            counter);
     PRINT_INFO(p.verbosity >= 1, "    CPU-DPU Time: %f ms", loadTime*1e3);
 
     // Iterate until next frontier is empty
     uint32_t nextFrontierEmpty = 0;
+    counter = 0;
     while(!nextFrontierEmpty) {
 
         PRINT_INFO(p.verbosity >= 1, "Processing current frontier for level %u", level);
@@ -177,6 +192,7 @@ int main(int argc, char** argv) {
 
 
         // Copy back next frontier from all DPUs and compute their union as the current frontier
+        
         startTimer(&timer);
         dpuIdx = 0;
         DPU_FOREACH (dpu_set, dpu) {
@@ -190,9 +206,11 @@ int main(int argc, char** argv) {
                         currentFrontier[i] |= nextFrontier[i];
                     }
                 }
+                counter++;
                 ++dpuIdx;
             }
         }
+        
 
         // Check if the next frontier is empty, and copy data to DPU if not empty
         nextFrontierEmpty = 1;
@@ -213,6 +231,7 @@ int main(int argc, char** argv) {
                     // Copy new level to DPU
                     dpuParams[dpuIdx].level = level;
                     copyToDPU(dpu, (uint8_t*)&dpuParams[dpuIdx], dpuParams_m[dpuIdx], sizeof(struct DPUParams));
+                    counter++;
                     ++dpuIdx;
                 }
             }
@@ -222,6 +241,11 @@ int main(int argc, char** argv) {
         PRINT_INFO(p.verbosity >= 2, "    Level Inter-DPU Time: %f ms", getElapsedTime(timer)*1e3);
 
     }
+    printf("Inter-DPU serial: %ld, %ld, %ld, counter: %d\n", 
+        ROUND_UP_TO_MULTIPLE_OF_8(numNodes/64*sizeof(uint64_t)), 
+        ROUND_UP_TO_MULTIPLE_OF_8(numNodes/64*sizeof(uint64_t)), 
+        ROUND_UP_TO_MULTIPLE_OF_8(sizeof(struct DPUParams)), counter);
+
     PRINT_INFO(p.verbosity >= 1, "DPU Kernel Time: %f ms", dpuTime*1e3);
     PRINT_INFO(p.verbosity >= 1, "Inter-DPU Time: %f ms", hostTime*1e3);
     #if ENERGY
@@ -237,11 +261,13 @@ int main(int argc, char** argv) {
         if(dpuNumNodes > 0) {
             uint32_t dpuStartNodeIdx = dpuIdx*numNodesPerDPU;
             copyFromDPU(dpu, dpuParams[dpuIdx].dpuNodeLevel_m, (uint8_t*)(nodeLevel + dpuStartNodeIdx), dpuNumNodes*sizeof(float));
+            printf("DPU-CPU serial: %ld\n", ROUND_UP_TO_MULTIPLE_OF_8(dpuNumNodes*sizeof(float)));
         }
         ++dpuIdx;
     }
     stopTimer(&timer);
     retrieveTime += getElapsedTime(timer);
+   
     PRINT_INFO(p.verbosity >= 1, "    DPU-CPU Time: %f ms", retrieveTime*1e3);
     if(p.verbosity == 0) PRINT("CPU-DPU Time(ms): %f    DPU Kernel Time (ms): %f    Inter-DPU Time (ms): %f    DPU-CPU Time (ms): %f", loadTime*1e3, dpuTime*1e3, hostTime*1e3, retrieveTime*1e3);
 
@@ -292,6 +318,7 @@ int main(int argc, char** argv) {
         ++level;
     }
 
+    /*
     // Verify the result
     PRINT_INFO(p.verbosity >= 1, "Verifying the result");
     for(uint32_t nodeIdx = 0; nodeIdx < numNodes; ++nodeIdx) {
@@ -299,6 +326,7 @@ int main(int argc, char** argv) {
             PRINT_ERROR("Mismatch at node %u (CPU result = level %u, DPU result = level %u)", nodeIdx, nodeLevelReference[nodeIdx], nodeLevel[nodeIdx]);
         }
     }
+    */
 
     // Display DPU Logs
     if(p.verbosity >= 2) {

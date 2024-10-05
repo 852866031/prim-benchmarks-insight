@@ -80,6 +80,7 @@ int main(int argc, char **argv) {
     unsigned int i = 0;
     uint32_t accum = 0;
     uint32_t total_count = 0;
+    int size = 0;
 
     const unsigned int input_size = p.exp == 0 ? p.input_size * nr_of_dpus : p.input_size; // Total input size (weak or strong scaling)
     const unsigned int input_size_dpu_ = divceil(input_size, nr_of_dpus); // Input size per DPU (max.)
@@ -130,6 +131,8 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, 0, input_size_dpu * sizeof(T), DPU_XFER_DEFAULT));
         if(rep >= p.n_warmup)
             stop(&timer, 1);
+        
+        printf("CPU-DPU parallel: %d,%d\n", sizeof(input_arguments), input_size_dpu * sizeof(T));
 
         printf("Run program on DPU(s) \n");
         // Run DPU kernel
@@ -209,19 +212,19 @@ int main(int argc, char **argv) {
         }
         if(rep >= p.n_warmup)
 		    stop(&timer, 3);
-
+        printf("Inter-DPU parallel: %d\n", NR_TASKLETS * sizeof(dpu_results_t));
         i = 0;
         if(rep >= p.n_warmup)
             start(&timer, 4, rep - p.n_warmup);
         DPU_FOREACH (dpu_set, dpu) {
             // Copy output array
             DPU_ASSERT(dpu_copy_from(dpu, DPU_MRAM_HEAP_POINTER_NAME, input_size_dpu * sizeof(T), bufferC + results_scan[i] - offset_scan[i], results[i].t_count * sizeof(T)));
-
+            size += results[i].t_count * sizeof(T);
             i++;
         }
         if(rep >= p.n_warmup)
             stop(&timer, 4);
-
+        printf("DPU-CPU serial: %d\n", (int) size/60);
         // Free memory
         free(results_scan);
         free(offset);

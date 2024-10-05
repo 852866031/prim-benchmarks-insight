@@ -128,7 +128,8 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, 0, input_size_dpu_8bytes * sizeof(T), DPU_XFER_DEFAULT));
         if(rep >= p.n_warmup)
             stop(&timer, 1);
-
+        printf("CPU-DPU parallel: %d,%d\n", sizeof(input_arguments[0]), input_size_dpu_8bytes * sizeof(T));
+        
         printf("Run program on DPU(s) \n");
         // Run DPU kernel
         if(rep >= p.n_warmup) {
@@ -161,17 +162,24 @@ int main(int argc, char **argv) {
         printf("Retrieve results\n");
         dpu_results_t results[nr_of_dpus];
         T* results_count = malloc(nr_of_dpus * sizeof(T));
-        if(rep >= p.n_warmup)
-            start(&timer, 3, rep - p.n_warmup);
+       
         i = 0;
         // PARALLEL RETRIEVE TRANSFER
         dpu_results_t* results_retrieve[nr_of_dpus];
 
         DPU_FOREACH(dpu_set, dpu, i) {
             results_retrieve[i] = (dpu_results_t*)malloc(NR_TASKLETS * sizeof(dpu_results_t));
+        }
+        if(rep >= p.n_warmup)
+            start(&timer, 3, rep - p.n_warmup);
+
+        DPU_FOREACH(dpu_set, dpu, i) {
             DPU_ASSERT(dpu_prepare_xfer(dpu, results_retrieve[i]));
         }
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_FROM_DPU, "DPU_RESULTS", 0, NR_TASKLETS * sizeof(dpu_results_t), DPU_XFER_DEFAULT));
+
+        if(rep >= p.n_warmup)
+            stop(&timer, 3);
 
         DPU_FOREACH(dpu_set, dpu, i) {
             // Retrieve tasklet timings
@@ -200,8 +208,9 @@ int main(int argc, char **argv) {
             free(results_retrieve[i]);
         }
 #endif
-        if(rep >= p.n_warmup)
-            stop(&timer, 3);
+        
+        
+        printf("Inter-DPU parallel: %d\n", NR_TASKLETS * sizeof(dpu_results_t));
 
 #if PERF
         uint64_t max_cycles = 0;
