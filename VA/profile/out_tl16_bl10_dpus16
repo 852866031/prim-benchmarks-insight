@@ -1,0 +1,12 @@
+Allocated 16 DPU(s)
+nr_elements	41943040	NR_TASKLETS	16	BL	10
+Load input data
+Run program on DPU(s) 
+Retrieve results
+CPU Time (ms): 93.898000	CPU-DPU Time (ms): 544.812000	DPU Kernel Time (ms): 76.267000	DPU-CPU Time (ms): 207.543000	[[32mOK[0m] Outputs are equal
+Allocated 16 DPU(s)
+nr_elements	41943040	NR_TASKLETS	16	BL	10
+Load input data
+Run program on DPU(s) 
+Retrieve results
+CPU Time (ms): 91.674000	CPU-DPU Time (ms): 527.024000	DPU Kernel Time (ms): 76.310000	DPU-CPU Time (ms): 207.915000	[[32mOK[0m] Outputs are equal

@@ -1,0 +1,6 @@
+Allocated 1 DPU(s)
+Allocated 4 TASKLET(s) per DPU
+Max size 512
+CPU version Time (ms): 4.327000	CPU-DPU Time (ms): 34.250000	DPU Kernel Time (ms): 44.370000	Inter-DPU Time (ms): 0.027000	DPU-CPU Time (ms): 31.600000	
+Longest Diagonal CPU-DPU Time (ms): 34.249000	Longest Diagonal DPU Kernel Time (ms): 44.370000	Longest Diagonal Inter-DPU Time (ms): 0.000000	Longest Diagonal DPU-CPU Time (ms): 31.600000	
+[[32mOK[0m] Outputs are equal
