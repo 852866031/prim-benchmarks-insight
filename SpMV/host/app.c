@@ -121,9 +121,12 @@ int main(int argc, char** argv) {
             copyToDPU(dpu, (uint8_t*)dpuRowPtrs_h, dpuRowPtrs_m, (dpuNumRows + 1)*sizeof(uint32_t));
             copyToDPU(dpu, (uint8_t*)dpuNonzeros_h, dpuNonzeros_m, dpuNumNonzeros*sizeof(struct Nonzero));
             copyToDPU(dpu, (uint8_t*)inVector, dpuInVector_m, numCols*sizeof(float));
+            printf("CPU-DPU serial: %d,%d,%d\n", 
+                ROUND_UP_TO_MULTIPLE_OF_8((dpuNumRows + 1)*sizeof(uint32_t)), 
+                ROUND_UP_TO_MULTIPLE_OF_8(dpuNumNonzeros*sizeof(struct Nonzero)),
+                ROUND_UP_TO_MULTIPLE_OF_8(numCols*sizeof(float)));
             stopTimer(&timer);
             loadTime += getElapsedTime(timer);
-
         }
 
         // Send parameters to DPU
@@ -164,6 +167,7 @@ int main(int argc, char** argv) {
         if(dpuNumRows > 0) {
             uint32_t dpuStartRowIdx = dpuIdx*numRowsPerDPU;
             copyFromDPU(dpu, dpuParams[dpuIdx].dpuOutVector_m, (uint8_t*)(outVector + dpuStartRowIdx), dpuNumRows*sizeof(float));
+            printf("DPU-CPU serial: %d\n", ROUND_UP_TO_MULTIPLE_OF_8(dpuNumRows*sizeof(float)));
         }
         ++dpuIdx;
     }

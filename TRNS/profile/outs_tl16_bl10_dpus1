@@ -1,0 +1,326 @@
+nr_elements	100663296	NR_TASKLETS	16
+M_	12288, m	16, N_	64, n	8
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+Allocated 1 DPU(s)
+Load input data (step 1)
+Run step 2 on DPU(s) 
+Run step 3 on DPU(s) 
+Retrieve results
+CPU-DPU parallel 1: 64, iteration: 12582912
+CPU-DPU parallel 2: 16, 98304, 64, iteration: 64
+DPU-CPU parallel: 12582912, iteration: 64
+CPU Time (ms): 945.359000	CPU-DPU (Step 1) Time (ms): 458875.767000	Step 2 Time (ms): 15121.658000	Step 3 Time (ms): 11215.497000	DPU-CPU Time (ms): 5572.672000	[[32mOK[0m] Outputs are equal

@@ -174,6 +174,8 @@ int main(int argc, char **argv) {
         if(rep >= p.n_warmup)
             stop(&timer, 1);
 
+        printf("CPU-DPU parallel: %d,%d\n", sizeof(input_arguments[0]), input_size_dpu_8bytes * sizeof(T));
+
         printf("Run program on DPU(s) \n");
         // Run DPU kernel
         if(rep >= p.n_warmup) {
@@ -221,7 +223,7 @@ int main(int argc, char **argv) {
         }
         if(rep >= p.n_warmup)
             stop(&timer, 3);
-
+        printf("DPU-CPU parallel: %d\n", p.bins * sizeof(unsigned int));
     }
 
     // Print timing results

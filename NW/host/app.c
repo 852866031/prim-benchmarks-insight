@@ -221,6 +221,11 @@ int main(int argc, char **argv) {
     unsigned int blocks_per_dpu;
     unsigned int mram_offset = 0;
 
+    int cpu_dpu_counter_1 = 0;
+    int cpu_dpu_counter_2 = 0;
+    int inter_dpu_counter_1 = 0;
+    int dpu_cpu_counter_1 = 0;
+
     // Timer
     Timer timer; 
     Timer long_diagonal_timer; 
@@ -338,11 +343,14 @@ int main(int argc, char **argv) {
 
 
             if (rep >= p.n_warmup) {
-                if ((max_cols-1)/BL == 1) 
+                if ((max_cols-1)/BL == 1) {
                     start(&timer, 2, rep - p.n_warmup + blk - 1);
-                else 
+                    cpu_dpu_counter_1++;
+                }
+                else {
                     start(&timer, 1, rep - p.n_warmup + blk - 1);
-                
+                    inter_dpu_counter_1++;
+                }
                 // Timer for longest diagonal
                 if (blk == ((max_cols-1)/BL)) {
                     if ((max_cols-1)/BL == 1) 
@@ -412,9 +420,10 @@ int main(int argc, char **argv) {
                 }
             }
 
-
+            
             if (rep >= p.n_warmup) {
                 start(&timer, 2, rep - p.n_warmup + blk - 1);
+                cpu_dpu_counter_2++;
                 // Timer for longest diagonal
                 if (blk == ((max_cols-1)/BL)) {
                     start(&long_diagonal_timer, 2, rep - p.n_warmup);
@@ -511,6 +520,7 @@ int main(int argc, char **argv) {
 
             if (rep >= p.n_warmup) {
                 start(&timer, 4, rep - p.n_warmup + blk - 1);
+                dpu_cpu_counter_1++;
                 // Timer for longest diagonal
                 if (blk == ((max_cols-1)/BL)) {
                     start(&long_diagonal_timer, 4, rep - p.n_warmup);
@@ -571,7 +581,15 @@ int main(int argc, char **argv) {
                 }
             }
         }
+        printf("CPU-DPU parallel 1: %ld, iteration: %d\n", 2 * sizeof(int32_t), cpu_dpu_counter_1*(BL + 1)*blocks_per_dpu);
+        printf("CPU-DPU parallel 2: %ld, iteration: %d\n", BL * sizeof(int32_t), cpu_dpu_counter_2*(BL + 1)*blocks_per_dpu);
+        printf("inter-DPU parallel 1: %ld, iteration: %d\n", 2 * sizeof(int32_t), inter_dpu_counter_1*(BL + 1)*blocks_per_dpu);
+        printf("DPU-CPU parallel 1: %ld, iteration: %d\n", (BL+2) * sizeof(int32_t), dpu_cpu_counter_1*(BL + 1)*blocks_per_dpu);
 
+        cpu_dpu_counter_1 = 0;
+        cpu_dpu_counter_2 = 0;
+        inter_dpu_counter_1 = 0;
+        dpu_cpu_counter_1 = 0;
 
         // Bottom-right computation on DPUs
         for (unsigned int blk = 2; blk <= (max_cols-1)/BL; blk++) {
@@ -617,8 +635,10 @@ int main(int argc, char **argv) {
             } 
             DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, "DPU_INPUT_ARGUMENTS", 0, sizeof(dpu_arguments_t), DPU_XFER_DEFAULT));
 
-            if (rep >= p.n_warmup)
+            if (rep >= p.n_warmup){
                 start(&timer, 1, rep - p.n_warmup + blk - 1);
+                inter_dpu_counter_1++;
+            }
             // Copy itemsets to DPUs
             unsigned int blocks_per_dpu = (((max_cols-1)/BL) - blk + 1) / nr_of_dpus;
             if ((((max_cols-1)/BL) - blk + 1) % nr_of_dpus != 0)
@@ -676,6 +696,7 @@ int main(int argc, char **argv) {
 
             if (rep >= p.n_warmup)
                 start(&timer, 2, rep - p.n_warmup + blk - 1);
+                cpu_dpu_counter_1++;
             // Copy reference to DPUs
             mram_offset = blocks_per_dpu * (BL+1) * (BL+2) * sizeof(int32_t); 
             for (unsigned int bl_indx = 0; bl_indx < blocks_per_dpu; bl_indx++) {
@@ -713,7 +734,6 @@ int main(int argc, char **argv) {
 
                     DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, mram_offset, BL * sizeof(int32_t), DPU_XFER_DEFAULT));
                     mram_offset += BL * sizeof(int32_t);
-
                 }
             }
             if (rep >= p.n_warmup)
@@ -753,8 +773,10 @@ int main(int argc, char **argv) {
 #endif
 
 
-            if (rep >= p.n_warmup)
+            if (rep >= p.n_warmup){
                 start(&timer, 4, rep - p.n_warmup + blk - 1);
+                dpu_cpu_counter_1++;
+            }
             // Retrieve results
             // Copy output result to Host CPU
             mram_offset = 0;
@@ -808,7 +830,9 @@ int main(int argc, char **argv) {
 
 
         }
-
+        printf("CPU-DPU parallel 3: %ld, iteration: %d\n", BL * sizeof(int32_t), cpu_dpu_counter_1*BL*blocks_per_dpu);
+        printf("Inter-DPU parallel 2: %ld, iteration: %d\n", 2 * sizeof(int32_t), inter_dpu_counter_1*(BL+1)*blocks_per_dpu);
+        printf("DPU-CPU parallel 2: %ld, iteration: %d\n", (BL+2) * sizeof(int32_t), dpu_cpu_counter_1*(BL+1)*blocks_per_dpu);
         // Traceback step
         if (rep >= p.n_warmup)
             start(&timer, 1, 1);

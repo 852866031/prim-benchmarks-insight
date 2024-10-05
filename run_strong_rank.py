@@ -2,7 +2,7 @@ import os
 import sys
 import getpass
 
-rootdir = "/" # Include path to repo
+rootdir = "/home/pim/Documents/prim-benchmarks-insight/" # Include path to repo
 print("Root dir: " + rootdir)
 
 applications = {"VA"       : ["NR_DPUS=X NR_TASKLETS=Y BL=Z make all", "./bin/host_code -w 0 -e 1 -i 2621440 -x 1"], 
@@ -24,8 +24,8 @@ applications = {"VA"       : ["NR_DPUS=X NR_TASKLETS=Y BL=Z make all", "./bin/ho
 
 def run(app_name):
     
-    NR_TASKLETS = [1, 2, 4, 8, 16]
-    NR_DPUS = [1, 4, 16, 64]
+    NR_TASKLETS = [16]
+    NR_DPUS = [60]
     BL = [10] 
 
     if app_name in applications:
@@ -73,7 +73,7 @@ def run(app_name):
                                 m = m.replace("Z", str(640))
                             elif (r == 16):
                                 m = m.replace("Z", str(160))
-                            elif (r == 64):
+                            elif (r == 60):
                                 m = m.replace("Z", str(40))
                         else: 
                             m = m.replace("Z", str(b))
@@ -84,7 +84,7 @@ def run(app_name):
                             pass 
 
                         r_cmd = run_cmd.replace("#ranks", str(r))
-                        r_cmd = r_cmd +  " >> profile/outs_tl"+str(t)+"_bl"+str(b)+"_dpus"+str(r) 
+                        r_cmd = r_cmd +  " > profile/outs_tl"+str(t)+"_bl"+str(b)+"_dpus"+str(r) 
                         
                         print ("Running = " + app_name + " -> "+ r_cmd)
                         try:

@@ -143,7 +143,8 @@ int main(int argc, char **argv) {
 		DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, input_size * sizeof(DTYPE), slice_per_dpu * sizeof(DTYPE), DPU_XFER_DEFAULT));
 
 		if (rep >= p.n_warmup)
-		stop(&timer, 1);
+			stop(&timer, 1);
+		printf("CPU-DPU parallel: %d,%d,%d\n", sizeof(input_arguments), input_size * sizeof(DTYPE), slice_per_dpu * sizeof(DTYPE));
 
 		// Run kernel on DPUs
 		if (rep >= p.n_warmup)
@@ -201,6 +202,7 @@ int main(int argc, char **argv) {
 		}
 		if(rep >= p.n_warmup)
 		stop(&timer, 3);
+		printf("DPU-CPU parallel: %d\n", NR_TASKLETS * sizeof(dpu_results_t));
 	}
 	// Print timing results
 	printf("CPU Version Time (ms): ");

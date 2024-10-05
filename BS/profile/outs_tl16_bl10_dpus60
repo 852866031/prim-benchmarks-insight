@@ -1,0 +1,9 @@
+CPU-DPU parallel: 24,16388608,35072
+DPU-CPU parallel: 128
+CPU-DPU parallel: 24,16388608,35072
+DPU-CPU parallel: 128
+CPU-DPU parallel: 24,16388608,35072
+DPU-CPU parallel: 128
+CPU-DPU parallel: 24,16388608,35072
+DPU-CPU parallel: 128
+CPU Version Time (ms): 8.462000	CPU-DPU Time (ms): 91.693333	DPU Kernel Time (ms): 43.655667	DPU-CPU Time (ms): 0.611667	[[32mOK[0m] results are equal

@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, DPU_MRAM_HEAP_POINTER_NAME, 0, input_size_dpu * sizeof(T), DPU_XFER_DEFAULT));
         if(rep >= p.n_warmup)
             stop(&timer, 1);
-
+        printf("CPU-DPU parallel: %d,%d\n", sizeof(input_arguments), input_size_dpu * sizeof(T));
         printf("Run program on DPU(s) \n");
         // Run DPU kernel
         if(rep >= p.n_warmup) {
@@ -199,6 +199,7 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_TO_DPU, "DPU_INPUT_ARGUMENTS", 0, sizeof(input_arguments_2[0]), DPU_XFER_DEFAULT));
         if(rep >= p.n_warmup)
             stop(&timer, 3);
+        printf("Inter-DPU parallel: %d\n", sizeof(input_arguments_2[0]));
 
         printf("Run program on DPU(s) \n");
         // Run DPU kernel
@@ -238,7 +239,7 @@ int main(int argc, char **argv) {
         DPU_ASSERT(dpu_push_xfer(dpu_set, DPU_XFER_FROM_DPU, DPU_MRAM_HEAP_POINTER_NAME, input_size_dpu * sizeof(T), input_size_dpu * sizeof(T), DPU_XFER_DEFAULT));
         if(rep >= p.n_warmup)
             stop(&timer, 5);
-
+        printf("DPU-CPU parallel: %d\n", input_size_dpu * sizeof(T));
         // Free memory
         free(results_scan);
     }
